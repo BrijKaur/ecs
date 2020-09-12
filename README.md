@@ -3,6 +3,8 @@
 Launch 3 EC2 instances (in free tier) and setup a cluster of 3 ElasticSearch nodes on it.
 ElasticSearch is configured in such a way that requires credentials and provides encrypted communication the demonstration of the functioning is also shown.
 
+The entire project has been explained in detail in the esc detail file
+
 The cross-cutting concerns addressed are:
 security 
 (encrypted communication and credentials required for ElasticSearch 
