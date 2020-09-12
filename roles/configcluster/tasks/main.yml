@@ -1,0 +1,13 @@
+---
+# tasks file for roles/configcluster
+ - name: Install cloud-aws plugin
+   shell: echo y |sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-ec2
+
+ - name: setting bootstrap password as elastic for superuser elastic
+   shell: echo elastic | sudo /usr/share/elasticsearch/bin/elasticsearch-keystore add "bootstrap.password"
+
+ - name: Replacing the jvm.options file to set heap space to 512m
+   template:
+     src: templates/jvm.options.j2
+     dest: /etc/elasticsearch/jvm.options
+

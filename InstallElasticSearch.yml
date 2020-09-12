@@ -1,0 +1,43 @@
+---
+ - name: Installing AWS plugin, set bootstrap password and replace JVM file
+   hosts: deploy
+   become: yes
+   gather_facts: true
+
+   roles: 
+      - configcluster
+
+
+ - name: Generate the Certificates on master node and fetch them to copy on all other nodes, replace the elasticsearch.yml file
+   hosts: master
+   become: yes
+   gather_facts: true
+   
+   roles: 
+     - setmaster
+
+
+ - name: node1 instance replace elasticsearch.yml file and placing certificate file
+   hosts: node1
+   become: yes
+   gather_facts: true
+   
+   roles: 
+     - setnode1
+
+ - name: node2 instance replace elasticsearch.yml file and placing certificate file
+   hosts: node2
+   become: yes
+   gather_facts: true
+   
+   roles: 
+      - setnode2
+
+ - name: Demonstrate Functionality
+   hosts: deploy
+   become: yes
+   gather_facts: true
+   
+   roles: 
+     - demo 
+

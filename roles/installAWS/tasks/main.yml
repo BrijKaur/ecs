@@ -1,0 +1,17 @@
+---
+ - name: launch ec2
+   ec2: 
+     instance_type: t2.micro
+     image: "{{ami_id}}"
+     region: "{{region}}"
+     count: 3
+     key_name: "{{keypair}}"
+     user_data: "{{user_data}}"
+     wait: yes
+     group: "{{security_group}}"
+     instance_tags:
+         Name: "{{tag_name}}"
+         state: present
+   register: ec2 
+
+   

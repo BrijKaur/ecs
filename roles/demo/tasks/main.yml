@@ -1,0 +1,13 @@
+---
+# tasks file for roles/demo
+ - name: Ensure that elasticsearch is restarted
+   service:
+      name: elasticsearch
+      state: restarted
+
+ - name: Demonstrate functionality
+   shell: curl -k -uelastic:elastic  https://localhost:9200/_cluster/health?pretty
+   register: output
+
+ - debug:
+     var: output 

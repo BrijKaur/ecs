@@ -1,0 +1,13 @@
+---
+ - name: Launch of EC2 instances
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   become: yes
+   
+   roles:
+     - role: installAWS
+     - role: forES
+       tags: forESonly
+     - role: sshAWS
+

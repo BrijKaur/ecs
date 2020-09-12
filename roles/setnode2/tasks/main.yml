@@ -1,0 +1,17 @@
+---
+# tasks file for roles/setnode2
+ - name: Replace elasticsearch.yml for node1
+   template:
+      src: /etc/ansible/elasticsearch_n2.yml.j2
+      dest: /etc/elasticsearch/elasticsearch.yml
+ 
+ - name: Copy certificate to node1
+   copy:
+     src: /etc/ansible/elastic-certificates.p12
+     dest: /etc/elasticsearch/elastic-certificates.p12
+
+ - name: Start Elasticsearch
+   service:
+      name: elasticsearch
+      state: started
+                          

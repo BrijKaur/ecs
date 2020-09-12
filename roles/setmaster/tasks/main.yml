@@ -1,0 +1,29 @@
+---
+# tasks file for roles/setmaster
+ - name: To generate certificate copy it to req location and set permissions
+   shell: |
+          cd /usr/share/elasticsearch
+          yes "" | sudo  ./bin/elasticsearch-certutil ca
+          yes "" | sudo ./bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12
+          sudo cp elastic-certificates.p12 /etc/elasticsearch/
+          sudo chown root:elasticsearch /etc/elasticsearch/elastic-certificates.p12
+          sudo chmod 660 /etc/elasticsearch/elastic-certificates.p12
+
+ - name: Replace elasticsearch.yml for master
+   template:
+         src: /etc/ansible/elasticsearch_m.yml.j2
+         dest: /etc/elasticsearch/elasticsearch.yml
+
+ - name: Fetch certificate file to send to nodes
+   fetch:
+      src: /etc/elasticsearch/elastic-certificates.p12
+      dest: /etc/ansible/elastic-certificates.p12
+      flat: yes
+
+ - name: Start Elasticsearch
+   service:
+      name: elasticsearch
+      state: started
+
+
+

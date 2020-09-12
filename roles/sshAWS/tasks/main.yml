@@ -1,0 +1,11 @@
+---
+# tasks file for roles/sshAWS
+ - name: Wait for SSH to be available
+   wait_for:
+     host: '{{ item.public_ip }}'
+     port: 22
+   with_items: "{{ ec2.instances }}"
+
+ - name: Pausing for Initial checks to be done
+   pause: seconds=120
+
